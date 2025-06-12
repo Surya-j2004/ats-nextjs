@@ -5,7 +5,8 @@ import { ChevronDown, X } from "lucide-react";
 export default function SetRequirementsPage() {
   const [jobTitle, setJobTitle] = useState("");
   const [domain, setDomain] = useState("");
-  const [skills, setSkills] = useState("");
+ 
+  const [skills] = useState([]);
   const [edu, setEdu] = useState("");
   const [exp, setExp] = useState("");
   const [location, setLocation] = useState("");
