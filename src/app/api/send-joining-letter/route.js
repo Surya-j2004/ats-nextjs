@@ -32,7 +32,7 @@ export const runtime = "nodejs"; // ensure Node.js runtime
 
 export async function POST(req) {
   try {
-    const { id, email, name, position, joiningDate } = await req.json();
+    const {  email, name, position, joiningDate } = await req.json();
 
     // 1. Generate PDF joining letter
     const pdfPath = await generateJoiningLetterPDF({ email, name, position, joiningDate });
