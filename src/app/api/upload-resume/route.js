@@ -66,7 +66,7 @@ export async function POST(req) {
         matchedSkills,
       }
     });
-  } catch (err) {
+  } catch (_err) {
     console.error("Error uploading resume:", err);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
