@@ -78,7 +78,7 @@ export async function POST(req) {
     });
 
     return NextResponse.json({ success: true, offerLetterId: saved.id });
-  } catch (error) {
+  } catch (_error) {
     console.error("Email send/save error:", error);
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
