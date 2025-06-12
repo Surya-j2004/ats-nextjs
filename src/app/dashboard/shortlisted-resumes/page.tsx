@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 
 export default function ShortlistedResumesPage() {
-  const [resumes, setResumes] = useState([]);
+  const [setResumes] = useState([]);
 
   useEffect(() => {
     fetch("/api/shortlisted-resumes")
