@@ -1,12 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Mail, MoreVertical, X } from "lucide-react";
+
 
 export default function OfferLettersPage() {
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState(null);
   const [toast, setToast] = useState(false);
-  const [actionMenuId, setActionMenuId] = useState(null);
   const [offerLetters, setOfferLetters] = useState([]);
 
   useEffect(() => {
