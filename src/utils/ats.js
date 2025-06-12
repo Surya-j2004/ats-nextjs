@@ -1,3 +1,4 @@
+// src/utils/ats.js
 export function calculateATSScore(resumeSkills = [], jdSkills = []) {
   if (!jdSkills || jdSkills.length === 0) return null;
   if (!resumeSkills || resumeSkills.length === 0) return 0;
