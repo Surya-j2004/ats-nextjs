@@ -1,14 +1,9 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-
 // Normalize: lowercase, remove non-alphanum, trim
 function normalize(str) {
   return (str || '').toLowerCase().replace(/[^a-z0-9]/g, '').trim();
 }
-
-
-
-
 
 // Forgiving partial match for text fields
 function fieldMatch(reqValue, resValue) {
@@ -88,7 +83,7 @@ export async function POST(req) {
       }))
     });
 
-  } catch (err) {
+  } catch (_err) {
     console.error("Shortlist error:", err);
     return NextResponse.json({ error: err.message }, { status: 500 });
   }
