@@ -13,7 +13,7 @@ export async function GET(request, { params }) {
         "Content-Disposition": `inline; filename="${filename}"`,
       },
     });
-  } catch (err) {
+  } catch (_err) {
     console.log("Looking for file:", filePath);
 
     return NextResponse.json({ error: "File not found" }, { status: 404 });
