@@ -42,7 +42,7 @@ export async function GET(request, { params }) {
     // Check if file exists
     try {
       await fs.access(filePath, fs.constants.F_OK);
-    } catch (err) {
+    } catch (_err) {
       console.error(`File not found at path: ${filePath}`);
       return NextResponse.json(
         { error: 'Resume file not found on server' },
