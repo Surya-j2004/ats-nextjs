@@ -13,6 +13,19 @@ export default function ResumeUpload({ onUpload }) {
     setError("");
     setLoading(true);
 
+    if (!file) {
+      setError("Please select a PDF file.");
+      setLoading(false);
+      return;
+    }
+
+    // Validate file type client-side (optional, for better UX)
+    if (file.type !== "application/pdf") {
+      setError("Only PDF files are allowed.");
+      setLoading(false);
+      return;
+    }
+
     const formData = new FormData();
     formData.append("file", file);
 
@@ -67,7 +80,6 @@ export default function ResumeUpload({ onUpload }) {
       >
         {loading ? "Uploading..." : "Upload Resume"}
       </button>
-     
       {error && <span className="text-red-500 ml-2">{error}</span>}
     </form>
   );
