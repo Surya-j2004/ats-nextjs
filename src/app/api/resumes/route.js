@@ -29,7 +29,7 @@ export async function GET() {
     });
 
     return NextResponse.json(resumesWithScore);
-  } catch (_err) {
+  } catch (err) {
     console.error("Failed to fetch resumes:", err);
     return NextResponse.json({ error: "Failed to fetch resumes" }, { status: 500 });
   }
