@@ -44,7 +44,7 @@ export async function POST(req) {
       ...resume,
       matchedSkills,
     });
-  } catch (_err) {
+  } catch (err) {
     console.error("Error saving resume:", err);
     return NextResponse.json({ error: err.message }, { status: 500 });
   }
