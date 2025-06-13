@@ -44,7 +44,10 @@
   },
   "overrides": {
     "@auth/core": "0.34.2",
-    "nodemailer": "^6.9.0"
+    "nodemailer": "6.9.14",
+    "@auth/prisma-adapter": {
+      "@auth/core": "0.34.2"
+    }
   },
   "prisma": {
     "seed": "node prisma/seed.js"
