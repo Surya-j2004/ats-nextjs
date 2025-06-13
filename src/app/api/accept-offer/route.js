@@ -25,7 +25,7 @@ export async function POST(req) {
   });
 
     return NextResponse.json({ success: true, updated });
-  } catch (_error) {
+  } catch (error) {
     console.error("Accept offer error:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
