@@ -81,8 +81,8 @@ export default function SetRequirementsPage() {
                 required
               >
                 <option value="">Select education level</option>
-                <option>Bachelor's Degree</option>
-                <option>Master's Degree</option>
+                <option>Bachelors Degree</option>
+                <option>Masters Degree</option>
                 <option>PhD</option>
                 <option>Diploma</option>
                 <option>UG</option>
