@@ -83,7 +83,7 @@ export async function POST(req) {
       }))
     });
 
-  } catch (_err) {
+  } catch (err) {
     console.error("Shortlist error:", err);
     return NextResponse.json({ error: err.message }, { status: 500 });
   }
