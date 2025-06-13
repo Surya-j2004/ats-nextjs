@@ -7,7 +7,7 @@ export async function POST(req) {
     
     const formData = await req.formData();
     const file = formData.get("file");
-    const jobDescription = formData.get("jobDescription");
+    
 
     if (!file) {
       return NextResponse.json({ error: "No file uploaded" }, { status: 400 });
