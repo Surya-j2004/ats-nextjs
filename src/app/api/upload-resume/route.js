@@ -1,7 +1,15 @@
 import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import { prisma } from "@/lib/prisma";
+
+// Configure AWS S3 client
+const s3Client = new S3Client({
+  region: process.env.AWS_REGION,
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  },
+});
 
 export async function POST(req) {
   try {
@@ -20,18 +28,21 @@ export async function POST(req) {
       return NextResponse.json({ error: "No job description found" }, { status: 404 });
     }
 
-    // Save the file to /uploads
+    // Upload to S3 instead of local filesystem
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
-    const uploadsDir = path.join(process.cwd(), "uploads");
-    if (!fs.existsSync(uploadsDir)) {
-      fs.mkdirSync(uploadsDir, { recursive: true });
-    }
-    const fileName = `${file.name}`;  // Added timestamp for uniqueness
-    const filePath = path.join(uploadsDir, fileName);
-    fs.writeFileSync(filePath, buffer);
+    const fileName = `${Date.now()}_${file.name}`;
 
-    // Parse resume with APILayer
+    await s3Client.send(
+      new PutObjectCommand({
+        Bucket: process.env.S3_BUCKET_NAME,
+        Key: `resumes/${fileName}`,
+        Body: buffer,
+        ContentType: file.type,
+      })
+    );
+
+    // Rest of the existing parsing logic remains unchanged
     const apiRes = await fetch("https://api.apilayer.com/resume_parser/upload", {
       method: "POST",
       headers: {
@@ -55,7 +66,6 @@ export async function POST(req) {
       ? Math.round((matchedSkills.length / requiredSkills.length) * 100)
       : 0;
 
-    // Return parsed data for human review - NO DATABASE SAVE HERE
     return NextResponse.json({
       parsedData: {
         ...parsed,
@@ -66,8 +76,12 @@ export async function POST(req) {
         matchedSkills,
       }
     });
-  } catch (_err) {
-    console.error("Error uploading resume:", err);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+
+  } catch (error) {
+    console.error("Error uploading resume:", error);
+    return NextResponse.json(
+      { error: "Internal server error", details: error.message },
+      { status: 500 }
+    );
   }
 }
