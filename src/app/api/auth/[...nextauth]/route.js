@@ -1,5 +1,3 @@
-// src/app/api/auth/[...nextauth]/route.js
-
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@auth/prisma-adapter";
@@ -14,7 +12,6 @@ const handler = NextAuth({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
-    // Add more providers if needed
   ],
   session: {
     strategy: "jwt",
