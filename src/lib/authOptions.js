@@ -13,16 +13,5 @@ export const authOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
-  session: { strategy: "jwt" },
-  callbacks: {
-    async session({ session, token }) {
-      if (token) session.user.role = token.role;
-      return session;
-    },
-    async jwt({ token, user }) {
-      if (user) token.role = user.role;
-      return token;
-    },
-  },
   secret: process.env.NEXTAUTH_SECRET,
 };
